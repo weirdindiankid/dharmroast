@@ -2,10 +2,14 @@
 # Author: Dharmesh Tarapore <dharmesh@bu.edu>
 # Description: Mucking about.
 import praw
-import proto.secrets as secrets
+import secrets as secrets
+from imagedownloader import *
 
 REDDIT_USERNAME = secrets.REDDIT_USERNAME
 REDDIT_PASSWORD = secrets.REDDIT_PASSWORD
+IMAGE_DIR = 'images/'
+
+image_downloader = ImageDownloader()
 
 DEBUG = True
 NUM_COMMENTS = 5
@@ -30,7 +34,15 @@ roastme = reddit.subreddit('roastme')
 # in a tuple 
 for submission in roastme.top(limit=NUMBER_OF_POSTS):
     title = submission.title
-    if not title.startswith("[META]") and submission.link_flair_text is not 'Meta':
-        print(submission.title)
+    if not title.startswith("[META]") and (submission.link_flair_text != 'Meta'):
+        try:
+            # Download the image
+            image_downloader.visit_url(submission.url, 0)
+            print(submission.title)
+        except Exception as e:
+            # TODO: Write this to a log file.
+            with open("error.log", "a+") as error_log_file:
+                error_log_file.write("Exception occurred: " + e + "\n")
+                error_log_file.close()
     else:
         continue
