@@ -2,12 +2,13 @@
 # Author: Dharmesh Tarapore <dharmesh@bu.edu>
 # Description: Mucking about.
 import praw
-import secrets
+import proto.secrets as secrets
 
 REDDIT_USERNAME = secrets.REDDIT_USERNAME
 REDDIT_PASSWORD = secrets.REDDIT_PASSWORD
 
-DEBUG = False
+DEBUG = True
+NUM_COMMENTS = 5
 
 if DEBUG:
     NUMBER_OF_POSTS = 5
@@ -29,7 +30,7 @@ roastme = reddit.subreddit('roastme')
 # in a tuple 
 for submission in roastme.top(limit=NUMBER_OF_POSTS):
     title = submission.title
-    if not title.startswith("[META]"):
+    if not title.startswith("[META]") and submission.link_flair_text is not 'Meta':
         print(submission.title)
     else:
         continue
