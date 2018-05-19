@@ -18,8 +18,8 @@ class ImageDownloader:
     def visit_url(self, url, level):
         #print(url)
         if self.is_image_url(url):
-            self.download_image(url, "")
-            return
+            return self.download_image(url, "")
+            #return
         if url in self.visited:
             return
 
@@ -31,7 +31,7 @@ class ImageDownloader:
         for img in soup.select("img[src]"):
             image_url = img["src"]
             if not image_url.startswith(("data:image", "javascript")):
-                self.download_image(urljoin(url, image_url), "")
+                return self.download_image(urljoin(url, image_url), "")
 
         if level > 0:
             for link in soup.select("a[href]"):
@@ -52,3 +52,4 @@ class ImageDownloader:
             with open("images/" + local_filename, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=1024):
                     f.write(chunk)
+            return local_filename

@@ -12,7 +12,7 @@ IMAGE_DIR = 'images/'
 image_downloader = ImageDownloader()
 
 DEBUG = True
-NUM_COMMENTS = 5
+NUMBER_OF_COMMENTS = 5
 
 if DEBUG:
     NUMBER_OF_POSTS = 5
@@ -37,7 +37,10 @@ for submission in roastme.top(limit=NUMBER_OF_POSTS):
     if not title.startswith("[META]") and (submission.link_flair_text != 'Meta'):
         try:
             # Download the image
-            image_downloader.visit_url(submission.url, 0)
+            image_file_name = image_downloader.visit_url(submission.url, 0)
+            # Retrieve top comments for this post (presumably, these are roasts)
+            # TODO: Down the line, use NLP to figure out if these are actually insults
+            # TODO: Also figure out if the retrieved images contain faces of humans/potatoes.
             print(submission.title)
         except Exception as e:
             # TODO: Write this to a log file.
