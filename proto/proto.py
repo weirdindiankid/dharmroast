@@ -42,10 +42,14 @@ for submission in roastme.top(limit=NUMBER_OF_POSTS):
             # TODO: Down the line, use NLP to figure out if these are actually insults
             # TODO: Also figure out if the retrieved images contain faces of humans/potatoes.
             print(submission.title)
+            comments = submission.comments
+            for comment in comments:
+                print(comment.body)
+
         except Exception as e:
             # TODO: Write this to a log file.
             with open("error.log", "a+") as error_log_file:
-                error_log_file.write("Exception occurred: " + e + "\n")
+                error_log_file.write("Exception occurred: " + str(e) + "\n")
                 error_log_file.close()
     else:
         continue
