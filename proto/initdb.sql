@@ -1,5 +1,5 @@
 CREATE DATABASE droast;
-
+USE droast;
 CREATE TABLE roasts(
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	image_link VARCHAR (255) NOT NULL,
