@@ -25,8 +25,8 @@ if DEBUG:
 else:
     NUMBER_OF_POSTS = 250
 
-reddit = praw.Reddit(client_id='9KimOyjWFOM8ag',
-                     client_secret='q11CnnYVwTJ7P927XKYJHJi_Rvg',
+reddit = praw.Reddit(client_id=secrets.CLIENT_ID,
+                     client_secret=secrets.CLIENT_SECRET,
                      password=REDDIT_PASSWORD,
                      user_agent='testscript by /u/' + REDDIT_USERNAME,
                      username=REDDIT_USERNAME)
